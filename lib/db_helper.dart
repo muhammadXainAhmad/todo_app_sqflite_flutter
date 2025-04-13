@@ -43,4 +43,10 @@ class DBHelper {
     });
     return rowsEffected > 0;
   }
+
+  Future<List<Map<String, dynamic>>> getAllItems() async {
+    var db = await getDB();
+    List<Map<String, dynamic>> mData = await db.query(TABLE_TODO);
+    return mData;
+  }
 }
