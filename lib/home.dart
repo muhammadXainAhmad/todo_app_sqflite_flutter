@@ -31,9 +31,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(
-          context,
-        ).requestFocus(FocusNode()); // This will unfocus the current focus
+        FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
         backgroundColor: bgClr,
@@ -43,31 +41,20 @@ class _HomePageState extends State<HomePage> {
             Image.asset("assets/faces1.png", height: 40, width: 40),
             const SizedBox(width: 15),
           ],
-          iconTheme: const IconThemeData(
-            // Drawer Icon Style
-            color: txtClr,
-            size: 30,
-          ),
+          iconTheme: const IconThemeData(color: txtClr, size: 30),
         ),
         drawer: Drawer(
-          // Drawer
           backgroundColor: bgClr,
           width: 300,
           child: Column(
             children: [
-              // Drawer Child Container
               Container(
                 color: drawerClr,
                 width: double.infinity,
                 child: Column(
                   children: [
                     const SizedBox(height: 40),
-                    Image.asset(
-                      // Drawer Profile Picture
-                      "assets/faces1.png",
-                      height: 100,
-                      width: 100,
-                    ),
+                    Image.asset("assets/faces1.png", height: 100, width: 100),
                     const SizedBox(height: 15),
                     const Text(
                       'Muhammad Xain Ahmad',
@@ -83,7 +70,6 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 30),
               Padding(
-                // Drawer Text Button 1
                 padding: const EdgeInsets.only(left: 8),
                 child: TextButton(
                   onPressed: () {
@@ -111,7 +97,6 @@ class _HomePageState extends State<HomePage> {
               ),
               const Divider(color: Colors.black, indent: 40, endIndent: 40),
               Padding(
-                // Drawer Text Button 2
                 padding: const EdgeInsets.only(left: 8),
                 child: TextButton(
                   onPressed: () {
@@ -140,7 +125,6 @@ class _HomePageState extends State<HomePage> {
               ),
               const Divider(color: Colors.black, indent: 40, endIndent: 40),
               Padding(
-                // Drawer Text Button 3
                 padding: const EdgeInsets.only(left: 8),
                 child: TextButton(
                   onPressed: () {
@@ -172,6 +156,26 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 10,
+                bottom: 10,
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: myBorder,
+                  focusedBorder: myBorder2,
+                  filled: true,
+                  fillColor: wgClr,
+                  hintText: "Search",
+                  hintStyle: const TextStyle(color: txtClr),
+                  prefixIcon: const Icon(Icons.search, color: txtClr, size: 20),
+                ),
+                style: const TextStyle(color: txtClr, fontSize: 16),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(
                 left: 20,
@@ -216,7 +220,12 @@ class _HomePageState extends State<HomePage> {
                       },
                       shape: myBtn,
                       tileColor: wgClr,
-                      leading: Icon(Icons.check_box, color: drawerClr),
+                      leading: Icon(
+                        allItems[index][DBHelper.COLUMN_TODO_ISDONE] == 1
+                            ? Icons.check_box
+                            : Icons.check_box_outline_blank,
+                        color: drawerClr,
+                      ),
 
                       title: Text(
                         allItems[index][DBHelper.COLUMN_TODO_TEXT],
