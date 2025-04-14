@@ -37,10 +37,19 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               )
-              : Center(child: Text("No Items")),
+              : Center(child: Text("Nothing to show here")),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          bool check = await dbRef!.addItem(
+            mId: "1",
+            mText: "Wash Car",
+            mIsDone: false,
+          );
+          if (check) {
+            getItems();
+          }
+        },
         child: Icon(Icons.add),
       ),
     );
