@@ -31,7 +31,7 @@ class DBHelper {
       dbPath,
       onCreate: (db, version) {
         db.execute(
-          "create table $TABLE_TODO($COLUMN_TODO_ID text primary key, $COLUMN_TODO_TEXT text, $COLUMN_TODO_ISDONE text )",
+          "create table $TABLE_TODO($COLUMN_TODO_ID text primary key, $COLUMN_TODO_TEXT text, $COLUMN_TODO_ISDONE integer )",
         );
       },
       version: 1,
@@ -47,7 +47,7 @@ class DBHelper {
     int rowsEffected = await db.insert(TABLE_TODO, {
       COLUMN_TODO_ID: mId,
       COLUMN_TODO_TEXT: mText,
-      COLUMN_TODO_ISDONE: mIsDone,
+      COLUMN_TODO_ISDONE: mIsDone ? 1 : 0,
     });
     return rowsEffected > 0;
   }

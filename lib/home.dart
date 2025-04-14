@@ -33,7 +33,11 @@ class _HomePageState extends State<HomePage> {
                 itemCount: allItems.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    leading: Text(allItems[index][DBHelper.COLUMN_TODO_ID]),
                     title: Text(allItems[index][DBHelper.COLUMN_TODO_TEXT]),
+                    subtitle: Text(
+                      allItems[index][DBHelper.COLUMN_TODO_ISDONE].toString(),
+                    ),
                   );
                 },
               )
@@ -42,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           bool check = await dbRef!.addItem(
-            mId: "1",
+            mId: DateTime.now().millisecondsSinceEpoch.toString(),
             mText: "Wash Car",
             mIsDone: false,
           );
