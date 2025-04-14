@@ -43,6 +43,132 @@ class _HomePageState extends State<HomePage> {
             Image.asset("assets/faces1.png", height: 40, width: 40),
             const SizedBox(width: 15),
           ],
+          iconTheme: const IconThemeData(
+            // Drawer Icon Style
+            color: txtClr,
+            size: 30,
+          ),
+        ),
+        drawer: Drawer(
+          // Drawer
+          backgroundColor: bgClr,
+          width: 300,
+          child: Column(
+            children: [
+              // Drawer Child Container
+              Container(
+                color: drawerClr,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 40),
+                    Image.asset(
+                      // Drawer Profile Picture
+                      "assets/faces1.png",
+                      height: 100,
+                      width: 100,
+                    ),
+                    const SizedBox(height: 15),
+                    const Text(
+                      'Muhammad Xain Ahmad',
+                      style: TextStyle(color: txtClr, fontSize: 18),
+                    ),
+                    const Text(
+                      'xain@email.com',
+                      style: TextStyle(color: txtClr, fontSize: 16),
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+              Padding(
+                // Drawer Text Button 1
+                padding: const EdgeInsets.only(left: 8),
+                child: TextButton(
+                  onPressed: () {
+                    setState(() {
+                      taskTitle = "All Tasks";
+                    });
+                    Navigator.pop(context);
+                  },
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.library_books_rounded, color: txtClr),
+                      SizedBox(width: 10),
+                      Text(
+                        "All Tasks",
+                        style: TextStyle(color: txtClr, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Divider(color: Colors.black, indent: 40, endIndent: 40),
+              Padding(
+                // Drawer Text Button 2
+                padding: const EdgeInsets.only(left: 8),
+                child: TextButton(
+                  onPressed: () {
+                    setState(() {
+                      taskTitle = "Completed Tasks";
+                    });
+
+                    Navigator.pop(context);
+                  },
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.check_box, color: txtClr),
+                      SizedBox(width: 10),
+                      Text(
+                        "Completed Tasks",
+                        style: TextStyle(color: txtClr, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Divider(color: Colors.black, indent: 40, endIndent: 40),
+              Padding(
+                // Drawer Text Button 3
+                padding: const EdgeInsets.only(left: 8),
+                child: TextButton(
+                  onPressed: () {
+                    setState(() {
+                      taskTitle = "Incomplete Tasks";
+                    });
+
+                    Navigator.pop(context);
+                  },
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.check_box_outline_blank, color: txtClr),
+                      SizedBox(width: 10),
+                      Text(
+                        "Incomplete Tasks",
+                        style: TextStyle(color: txtClr, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         body: Column(
           children: [
