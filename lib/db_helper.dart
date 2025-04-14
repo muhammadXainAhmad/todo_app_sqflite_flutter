@@ -65,4 +65,14 @@ class DBHelper {
     }, where: "$COLUMN_TODO_ID=$mId");
     return rowsEffected > 0;
   }
+
+  Future<bool> deleteItem({required String mId}) async {
+    var db = await getDB();
+    int rowsEffected = await db.delete(
+      TABLE_TODO,
+      where: "$COLUMN_TODO_ID = ?",
+      whereArgs: [mId],
+    );
+    return rowsEffected > 0;
+  }
 }
