@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final todoController = TextEditingController();
+  String taskTitle = "All Tasks";
   List<Map<String, dynamic>> allItems = [];
   DBHelper? dbRef;
   @override
@@ -39,67 +40,91 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          allItems.isNotEmpty
-              ? Expanded(
-                child: ListView.builder(
-                  itemCount: allItems.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        top: 10,
-                        bottom: 10,
-                      ),
-                      child: ListTile(
-                        shape: myBtn,
-                        tileColor: wgClr,
-                        leading: Icon(Icons.check_box, color: drawerClr),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+              top: 10,
+              bottom: 10,
+            ),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                taskTitle,
+                style: const TextStyle(
+                  color: txtClr,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: allItems.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 10,
+                    bottom: 10,
+                  ),
+                  child: ListTile(
+                    shape: myBtn,
+                    tileColor: wgClr,
+                    leading: Icon(Icons.check_box, color: drawerClr),
 
-                        title: Text(
-                          allItems[index][DBHelper.COLUMN_TODO_TEXT],
-                          style: TextStyle(
-                            color: txtClr,
-                            fontSize: 16,
-                            decoration: TextDecoration.lineThrough,
-                            decorationThickness: 3,
-                            decorationColor: bgClr,
+                    title: Text(
+                      allItems[index][DBHelper.COLUMN_TODO_TEXT],
+                      style: TextStyle(
+                        color: txtClr,
+                        fontSize: 16,
+                        decoration: TextDecoration.lineThrough,
+                        decorationThickness: 3,
+                        decorationColor: bgClr,
+                      ),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: myBoxDel,
+                          child: IconButton(
+                            padding: const EdgeInsets.all(0),
+                            onPressed: () {},
+                            icon: const Icon(Icons.edit),
+                            color: Colors.white,
                           ),
                         ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 30,
-                              decoration: myBoxDel,
-                              child: IconButton(
-                                padding: const EdgeInsets.all(0),
-                                onPressed: () {},
-                                icon: const Icon(Icons.edit),
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Container(
-                              width: 30,
-                              height: 30,
-                              decoration: myBoxEdit,
-                              child: IconButton(
-                                padding: const EdgeInsets.all(0),
-                                onPressed: () {},
-                                icon: const Icon(Icons.delete),
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                        SizedBox(width: 10),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: myBoxEdit,
+                          child: IconButton(
+                            padding: const EdgeInsets.all(0),
+                            onPressed: () async {
+                              bool check = await dbRef!.deleteItem(
+                                mId: allItems[index][DBHelper.COLUMN_TODO_ID],
+                              );
+                              if (check) {
+                                getItems();
+                              }
+                            },
+                            icon: const Icon(Icons.delete),
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              )
-              : Center(child: Text("Nothing to show here")),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
           Container(
             decoration: myBox,
             child: Align(
