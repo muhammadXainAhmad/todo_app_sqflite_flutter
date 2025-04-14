@@ -57,4 +57,12 @@ class DBHelper {
     List<Map<String, dynamic>> mData = await db.query(TABLE_TODO);
     return mData;
   }
+
+  Future<bool> updateItem({required String mId, required String mText}) async {
+    var db = await getDB();
+    int rowsEffected = await db.update(TABLE_TODO, {
+      COLUMN_TODO_TEXT: mText,
+    }, where: "$COLUMN_TODO_ID=$mId");
+    return rowsEffected > 0;
+  }
 }
