@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_sqflite/Constants/constants.dart';
 import 'package:todo_app_sqflite/db_helper.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: bgClr,
       appBar: AppBar(title: Text("TO DO")),
       body: Center(
         child: Column(
@@ -35,12 +37,28 @@ class _HomePageState extends State<HomePage> {
                   child: ListView.builder(
                     itemCount: allItems.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Text(allItems[index][DBHelper.COLUMN_TODO_ID]),
-                        title: Text(allItems[index][DBHelper.COLUMN_TODO_TEXT]),
-                        subtitle: Text(
-                          allItems[index][DBHelper.COLUMN_TODO_ISDONE]
-                              .toString(),
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          top: 10,
+                          bottom: 10,
+                        ),
+                        child: ListTile(
+                          shape: myBtn,
+                          tileColor: wgClr,
+                          leading: Icon(Icons.check_box, color: drawerClr),
+
+                          title: Text(
+                            allItems[index][DBHelper.COLUMN_TODO_TEXT],
+                            style: TextStyle(
+                              color: txtClr,
+                              fontSize: 16,
+                              decoration: TextDecoration.lineThrough,
+                              decorationThickness: 3,
+                              decorationColor: bgClr,
+                            ),
+                          ),
                         ),
                       );
                     },
