@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final todoController = TextEditingController();
   List<Map<String, dynamic>> allItems = [];
   DBHelper? dbRef;
   @override
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   void getItems() async {
     allItems = await dbRef!.getAllItems();
+    allItems = allItems.reversed.toList();
     setState(() {});
   }
 
@@ -113,6 +115,8 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: todoController,
+
                         decoration: InputDecoration(
                           focusedBorder: myBorder,
                           enabledBorder: myBorder,
@@ -137,13 +141,19 @@ class _HomePageState extends State<HomePage> {
                         shape: myBtn,
                       ),
                       onPressed: () async {
-                        bool check = await dbRef!.addItem(
-                          mId: DateTime.now().millisecondsSinceEpoch.toString(),
-                          mText: "Wash Car",
-                          mIsDone: false,
-                        );
-                        if (check) {
-                          getItems();
+                        var todoText = todoController.text;
+                        if (todoText.isNotEmpty) {
+                          bool check = await dbRef!.addItem(
+                            mId:
+                                DateTime.now().millisecondsSinceEpoch
+                                    .toString(),
+                            mText: todoController.text,
+                            mIsDone: false,
+                          );
+                          if (check) {
+                            getItems();
+                            todoController.clear();
+                          }
                         }
                       },
                       child: const Icon(Icons.add, color: txtClr),
