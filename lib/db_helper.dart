@@ -27,7 +27,15 @@ class DBHelper {
   Future<Database> openDB() async {
     Directory appDir = await getApplicationDocumentsDirectory();
     String dbPath = join(appDir.path, "todoDB.db");
-    return await openDatabase(dbPath, onCreate: (db, version) {}, version: 1);
+    return await openDatabase(
+      dbPath,
+      onCreate: (db, version) {
+        db.execute(
+          "create table $TABLE_TODO($COLUMN_TODO_ID text primary key, $COLUMN_TODO_TEXT text, $COLUMN_TODO_ISDONE text )",
+        );
+      },
+      version: 1,
+    );
   }
 
   Future<bool> addItem({
