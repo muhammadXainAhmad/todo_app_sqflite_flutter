@@ -58,10 +58,11 @@ class DBHelper {
     return mData;
   }
 
-  Future<bool> updateItem({required String mId, required String mText}) async {
+  Future<bool> updateItem({required String mId, required String mText,required int mIsDone}) async {
     var db = await getDB();
     int rowsEffected = await db.update(TABLE_TODO, {
       COLUMN_TODO_TEXT: mText,
+      COLUMN_TODO_ISDONE:mIsDone
     }, where: "$COLUMN_TODO_ID=$mId");
     return rowsEffected > 0;
   }

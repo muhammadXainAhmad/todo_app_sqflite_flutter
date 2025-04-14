@@ -71,6 +71,16 @@ class _HomePageState extends State<HomePage> {
                     bottom: 10,
                   ),
                   child: ListTile(
+                    onTap: () async {
+                      int currentValue =
+                          allItems[index][DBHelper.COLUMN_TODO_ISDONE];
+                      int toggledValue = currentValue == 0 ? 1 : 0;
+                      await dbRef!.updateItem(
+                        mId: allItems[index][DBHelper.COLUMN_TODO_ID],
+                        mText: allItems[index][DBHelper.COLUMN_TODO_TEXT],
+                        mIsDone: toggledValue,
+                      );getItems();
+                    },
                     shape: myBtn,
                     tileColor: wgClr,
                     leading: Icon(Icons.check_box, color: drawerClr),
@@ -80,7 +90,10 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         color: txtClr,
                         fontSize: 16,
-                        decoration: TextDecoration.lineThrough,
+                        decoration:
+                            allItems[index][DBHelper.COLUMN_TODO_ISDONE] == 1
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
                         decorationThickness: 3,
                         decorationColor: bgClr,
                       ),
