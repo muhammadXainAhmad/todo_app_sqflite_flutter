@@ -64,6 +64,34 @@ class _HomePageState extends State<HomePage> {
                             decorationColor: bgClr,
                           ),
                         ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: myBoxDel,
+                              child: IconButton(
+                                padding: const EdgeInsets.all(0),
+                                onPressed: () {},
+                                icon: const Icon(Icons.edit),
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: myBoxEdit,
+                              child: IconButton(
+                                padding: const EdgeInsets.all(0),
+                                onPressed: () {},
+                                icon: const Icon(Icons.delete),
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

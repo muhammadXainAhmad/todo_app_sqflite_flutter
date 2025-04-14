@@ -14,14 +14,25 @@ final myBorder2 = OutlineInputBorder(
 
 //Container
 var myBox = BoxDecoration(
-    color: drawerClr,
-    borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(20), topRight: Radius.circular(20)));
+  color: drawerClr,
+  borderRadius: const BorderRadius.only(
+    topLeft: Radius.circular(20),
+    topRight: Radius.circular(20),
+  ),
+);
 
-final myBoxDel =
-    BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(10));
+final myBoxDel = BoxDecoration(
+  color: drawerClr,
+  borderRadius: BorderRadius.circular(10),
+);
+
+final myBoxEdit = BoxDecoration(
+  color: Colors.red,
+  borderRadius: BorderRadius.circular(10),
+);
 
 //Buttons
 final myBtn = RoundedRectangleBorder(
-    side: const BorderSide(color: Colors.black),
-    borderRadius: BorderRadius.circular(20));
+  side: const BorderSide(color: Colors.black),
+  borderRadius: BorderRadius.circular(20),
+);
