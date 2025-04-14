@@ -5,10 +5,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBHelper {
-  final String TABLE_TODO = "todo";
-  final String COLUMN_TODO_ID = "id";
-  final String COLUMN_TODO_TEXT = "text";
-  final String COLUMN_TODO_ISDONE = "is_done";
+  static final String TABLE_TODO = "todo";
+  static final String COLUMN_TODO_ID = "id";
+  static final String COLUMN_TODO_TEXT = "text";
+  static final String COLUMN_TODO_ISDONE = "is_done";
   DBHelper._();
 
   static final DBHelper getInstance = DBHelper._();
