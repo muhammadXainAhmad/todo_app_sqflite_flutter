@@ -27,21 +27,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("TO DO")),
-      body:
-          allItems.isNotEmpty
-              ? ListView.builder(
-                itemCount: allItems.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Text(allItems[index][DBHelper.COLUMN_TODO_ID]),
-                    title: Text(allItems[index][DBHelper.COLUMN_TODO_TEXT]),
-                    subtitle: Text(
-                      allItems[index][DBHelper.COLUMN_TODO_ISDONE].toString(),
-                    ),
-                  );
-                },
-              )
-              : Center(child: Text("Nothing to show here")),
+      body: Center(
+        child: Column(
+          children: [
+            allItems.isNotEmpty
+                ? Expanded(
+                  child: ListView.builder(
+                    itemCount: allItems.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: Text(allItems[index][DBHelper.COLUMN_TODO_ID]),
+                        title: Text(allItems[index][DBHelper.COLUMN_TODO_TEXT]),
+                        subtitle: Text(
+                          allItems[index][DBHelper.COLUMN_TODO_ISDONE]
+                              .toString(),
+                        ),
+                      );
+                    },
+                  ),
+                )
+                : Center(child: Text("Nothing to show here")),
+          ],
+        ),
+      ),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
