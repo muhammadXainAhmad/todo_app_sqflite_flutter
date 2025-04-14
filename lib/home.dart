@@ -28,45 +28,49 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgClr,
-      appBar: AppBar(title: Text("TO DO")),
-      body: Center(
-        child: Column(
-          children: [
-            allItems.isNotEmpty
-                ? Expanded(
-                  child: ListView.builder(
-                    itemCount: allItems.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                          top: 10,
-                          bottom: 10,
-                        ),
-                        child: ListTile(
-                          shape: myBtn,
-                          tileColor: wgClr,
-                          leading: Icon(Icons.check_box, color: drawerClr),
+      appBar: AppBar(
+        backgroundColor: bgClr,
+        actions: [
+          Image.asset("assets/faces1.png", height: 40, width: 40),
+          const SizedBox(width: 15),
+        ],
+      ),
+      body: Column(
+        children: [
+          allItems.isNotEmpty
+              ? Expanded(
+                child: ListView.builder(
+                  itemCount: allItems.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        top: 10,
+                        bottom: 10,
+                      ),
+                      child: ListTile(
+                        shape: myBtn,
+                        tileColor: wgClr,
+                        leading: Icon(Icons.check_box, color: drawerClr),
 
-                          title: Text(
-                            allItems[index][DBHelper.COLUMN_TODO_TEXT],
-                            style: TextStyle(
-                              color: txtClr,
-                              fontSize: 16,
-                              decoration: TextDecoration.lineThrough,
-                              decorationThickness: 3,
-                              decorationColor: bgClr,
-                            ),
+                        title: Text(
+                          allItems[index][DBHelper.COLUMN_TODO_TEXT],
+                          style: TextStyle(
+                            color: txtClr,
+                            fontSize: 16,
+                            decoration: TextDecoration.lineThrough,
+                            decorationThickness: 3,
+                            decorationColor: bgClr,
                           ),
                         ),
-                      );
-                    },
-                  ),
-                )
-                : Center(child: Text("Nothing to show here")),
-          ],
-        ),
+                      ),
+                    );
+                  },
+                ),
+              )
+              : Center(child: Text("Nothing to show here")),
+        ],
       ),
 
       floatingActionButton: FloatingActionButton(
