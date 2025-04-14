@@ -98,21 +98,62 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
               : Center(child: Text("Nothing to show here")),
+          Container(
+            decoration: myBox,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 10,
+                  bottom: 10,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          focusedBorder: myBorder,
+                          enabledBorder: myBorder,
+                          filled: true,
+                          fillColor: wgClr,
+                          hintText: "Add a new item to do",
+                          hintStyle: const TextStyle(color: txtClr),
+                          prefixIcon: const Icon(
+                            Icons.edit_note_rounded,
+                            color: txtClr,
+                            size: 30,
+                          ),
+                        ),
+                        style: const TextStyle(color: txtClr, fontSize: 16),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: wgClr,
+                        minimumSize: const Size(20, 56),
+                        shape: myBtn,
+                      ),
+                      onPressed: () async {
+                        bool check = await dbRef!.addItem(
+                          mId: DateTime.now().millisecondsSinceEpoch.toString(),
+                          mText: "Wash Car",
+                          mIsDone: false,
+                        );
+                        if (check) {
+                          getItems();
+                        }
+                      },
+                      child: const Icon(Icons.add, color: txtClr),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
-      ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          bool check = await dbRef!.addItem(
-            mId: DateTime.now().millisecondsSinceEpoch.toString(),
-            mText: "Wash Car",
-            mIsDone: false,
-          );
-          if (check) {
-            getItems();
-          }
-        },
-        child: Icon(Icons.add),
       ),
     );
   }
