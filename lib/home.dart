@@ -285,6 +285,7 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                           color: txtClr,
                           fontSize: 16,
+                          fontWeight: FontWeight.bold,
                           decoration:
                               filteredItems[index][DBHelper
                                           .COLUMN_TODO_ISDONE] ==
