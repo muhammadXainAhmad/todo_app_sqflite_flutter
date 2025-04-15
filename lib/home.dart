@@ -295,6 +295,10 @@ class _HomePageState extends State<HomePage> {
                           decorationColor: bgClr,
                         ),
                       ),
+                      subtitle: Text(
+                        filteredItems[index][DBHelper.COLUMN_TODO_DATE],
+                        style: TextStyle(color: txtClr, fontSize: 12),
+                      ),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -407,6 +411,11 @@ class _HomePageState extends State<HomePage> {
                                               .toString(),
                                       mText: todoController.text,
                                       mIsDone: false,
+                                      mDate:
+                                          DateTime.now()
+                                              .toLocal()
+                                              .toString()
+                                              .split(" ")[0],
                                     );
                             if (check) {
                               getItems();

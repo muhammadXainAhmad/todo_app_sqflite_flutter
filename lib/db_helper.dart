@@ -35,14 +35,7 @@ class DBHelper {
           "create table $TABLE_TODO($COLUMN_TODO_ID text primary key, $COLUMN_TODO_TEXT text, $COLUMN_TODO_ISDONE integer,$COLUMN_TODO_DATE text)",
         );
       },
-      version: 2,
-      onUpgrade: (db, oldVersion, newVersion) async {
-        if (oldVersion < 2) {
-          await db.execute(
-            "Alter table $TABLE_TODO add column $COLUMN_TODO_DATE text",
-          );
-        }
-      },
+      version: 1,
     );
   }
 
@@ -50,12 +43,15 @@ class DBHelper {
     required String mId,
     required String mText,
     required bool mIsDone,
+    required String mDate,
+
   }) async {
     var db = await getDB();
     int rowsEffected = await db.insert(TABLE_TODO, {
       COLUMN_TODO_ID: mId,
       COLUMN_TODO_TEXT: mText,
       COLUMN_TODO_ISDONE: mIsDone ? 1 : 0,
+      COLUMN_TODO_DATE:mDate
     });
     return rowsEffected > 0;
   }
