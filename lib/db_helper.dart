@@ -9,6 +9,7 @@ class DBHelper {
   static final String COLUMN_TODO_ID = "id";
   static final String COLUMN_TODO_TEXT = "text";
   static final String COLUMN_TODO_ISDONE = "is_done";
+  static final String COLUMN_TODO_DATE = "due_date";
   DBHelper._();
 
   static final DBHelper getInstance = DBHelper._();
@@ -31,10 +32,17 @@ class DBHelper {
       dbPath,
       onCreate: (db, version) {
         db.execute(
-          "create table $TABLE_TODO($COLUMN_TODO_ID text primary key, $COLUMN_TODO_TEXT text, $COLUMN_TODO_ISDONE integer )",
+          "create table $TABLE_TODO($COLUMN_TODO_ID text primary key, $COLUMN_TODO_TEXT text, $COLUMN_TODO_ISDONE integer,$COLUMN_TODO_DATE text)",
         );
       },
-      version: 1,
+      version: 2,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute(
+            "Alter table $TABLE_TODO add column $COLUMN_TODO_DATE text",
+          );
+        }
+      },
     );
   }
 
@@ -58,11 +66,15 @@ class DBHelper {
     return mData;
   }
 
-  Future<bool> updateItem({required String mId, required String mText,required int mIsDone}) async {
+  Future<bool> updateItem({
+    required String mId,
+    required String mText,
+    required int mIsDone,
+  }) async {
     var db = await getDB();
     int rowsEffected = await db.update(TABLE_TODO, {
       COLUMN_TODO_TEXT: mText,
-      COLUMN_TODO_ISDONE:mIsDone
+      COLUMN_TODO_ISDONE: mIsDone,
     }, where: "$COLUMN_TODO_ID=$mId");
     return rowsEffected > 0;
   }
