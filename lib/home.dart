@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final todoController = TextEditingController();
   String taskTitle = "All Tasks";
+  List<Map<String, dynamic>> filteredItems = [];
   List<Map<String, dynamic>> allItems = [];
   DBHelper? dbRef;
   @override
@@ -24,6 +25,22 @@ class _HomePageState extends State<HomePage> {
   void getItems() async {
     allItems = await dbRef!.getAllItems();
     allItems = allItems.reversed.toList();
+    runFilter("");
+  }
+
+  void runFilter(String searchWord) {
+    if (searchWord.isEmpty) {
+      filteredItems = allItems;
+    } else {
+      filteredItems =
+          allItems
+              .where(
+                (item) => item[DBHelper.COLUMN_TODO_TEXT]
+                    .toLowerCase()
+                    .contains(searchWord.toLowerCase()),
+              )
+              .toList();
+    }
     setState(() {});
   }
 
@@ -164,6 +181,7 @@ class _HomePageState extends State<HomePage> {
                 bottom: 10,
               ),
               child: TextField(
+                onChanged: runFilter,
                 decoration: InputDecoration(
                   enabledBorder: myBorder,
                   focusedBorder: myBorder2,
@@ -197,7 +215,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: allItems.length,
+                itemCount: filteredItems.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(
@@ -209,11 +227,12 @@ class _HomePageState extends State<HomePage> {
                     child: ListTile(
                       onTap: () async {
                         int currentValue =
-                            allItems[index][DBHelper.COLUMN_TODO_ISDONE];
+                            filteredItems[index][DBHelper.COLUMN_TODO_ISDONE];
                         int toggledValue = currentValue == 0 ? 1 : 0;
                         await dbRef!.updateItem(
-                          mId: allItems[index][DBHelper.COLUMN_TODO_ID],
-                          mText: allItems[index][DBHelper.COLUMN_TODO_TEXT],
+                          mId: filteredItems[index][DBHelper.COLUMN_TODO_ID],
+                          mText:
+                              filteredItems[index][DBHelper.COLUMN_TODO_TEXT],
                           mIsDone: toggledValue,
                         );
                         getItems();
@@ -221,19 +240,21 @@ class _HomePageState extends State<HomePage> {
                       shape: myBtn,
                       tileColor: wgClr,
                       leading: Icon(
-                        allItems[index][DBHelper.COLUMN_TODO_ISDONE] == 1
+                        filteredItems[index][DBHelper.COLUMN_TODO_ISDONE] == 1
                             ? Icons.check_box
                             : Icons.check_box_outline_blank,
                         color: drawerClr,
                       ),
 
                       title: Text(
-                        allItems[index][DBHelper.COLUMN_TODO_TEXT],
+                        filteredItems[index][DBHelper.COLUMN_TODO_TEXT],
                         style: TextStyle(
                           color: txtClr,
                           fontSize: 16,
                           decoration:
-                              allItems[index][DBHelper.COLUMN_TODO_ISDONE] == 1
+                              filteredItems[index][DBHelper
+                                          .COLUMN_TODO_ISDONE] ==
+                                      1
                                   ? TextDecoration.lineThrough
                                   : TextDecoration.none,
                           decorationThickness: 3,
@@ -263,7 +284,9 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(0),
                               onPressed: () async {
                                 bool check = await dbRef!.deleteItem(
-                                  mId: allItems[index][DBHelper.COLUMN_TODO_ID],
+                                  mId:
+                                      filteredItems[index][DBHelper
+                                          .COLUMN_TODO_ID],
                                 );
                                 if (check) {
                                   getItems();
