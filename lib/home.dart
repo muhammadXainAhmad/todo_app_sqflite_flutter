@@ -26,6 +26,20 @@ class _HomePageState extends State<HomePage> {
     allItems = await dbRef!.getAllItems();
     allItems = allItems.reversed.toList();
     runFilter("");
+    if (taskTitle == "Completed Tasks") {
+      filteredItems =
+          allItems
+              .where((item) => item[DBHelper.COLUMN_TODO_ISDONE] == 1)
+              .toList();
+    } else if (taskTitle == "Incomplete Tasks") {
+      filteredItems =
+          allItems
+              .where((item) => item[DBHelper.COLUMN_TODO_ISDONE] == 0)
+              .toList();
+    } else {
+      filteredItems = allItems;
+    }
+    setState(() {});
   }
 
   void runFilter(String searchWord) {
@@ -93,6 +107,7 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       taskTitle = "All Tasks";
                     });
+                    getItems();
                     Navigator.pop(context);
                   },
                   style: TextButton.styleFrom(
@@ -120,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       taskTitle = "Completed Tasks";
                     });
-
+                    getItems();
                     Navigator.pop(context);
                   },
                   style: TextButton.styleFrom(
@@ -148,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       taskTitle = "Incomplete Tasks";
                     });
-
+                    getItems();
                     Navigator.pop(context);
                   },
                   style: TextButton.styleFrom(
