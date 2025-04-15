@@ -12,6 +12,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final todoController = TextEditingController();
   String taskTitle = "All Tasks";
+  String updateID = "";
+  String updateText = "";
+  int updateIsDone = 0;
+  bool isUpdate = false;
   List<Map<String, dynamic>> filteredItems = [];
   List<Map<String, dynamic>> allItems = [];
   DBHelper? dbRef;
@@ -300,7 +304,21 @@ class _HomePageState extends State<HomePage> {
                             decoration: myBoxDel,
                             child: IconButton(
                               padding: const EdgeInsets.all(0),
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  isUpdate = true;
+                                  updateID =
+                                      filteredItems[index][DBHelper
+                                          .COLUMN_TODO_ID];
+                                  updateText =
+                                      filteredItems[index][DBHelper
+                                          .COLUMN_TODO_TEXT];
+                                  updateIsDone =
+                                      filteredItems[index][DBHelper
+                                          .COLUMN_TODO_ISDONE];
+                                  todoController.text = updateText;
+                                });
+                              },
                               icon: const Icon(Icons.edit),
                               color: Colors.white,
                             ),
@@ -376,20 +394,34 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () async {
                           var todoText = todoController.text;
                           if (todoText.isNotEmpty) {
-                            bool check = await dbRef!.addItem(
-                              mId:
-                                  DateTime.now().millisecondsSinceEpoch
-                                      .toString(),
-                              mText: todoController.text,
-                              mIsDone: false,
-                            );
+                            bool check =
+                                isUpdate
+                                    ? await dbRef!.updateItem(
+                                      mId: updateID,
+                                      mText: todoController.text,
+                                      mIsDone: updateIsDone,
+                                    )
+                                    : await dbRef!.addItem(
+                                      mId:
+                                          DateTime.now().millisecondsSinceEpoch
+                                              .toString(),
+                                      mText: todoController.text,
+                                      mIsDone: false,
+                                    );
                             if (check) {
                               getItems();
                               todoController.clear();
+                              isUpdate = false;
+                              updateID = "";
+                              updateText = "";
+                              updateIsDone = 0;
                             }
                           }
                         },
-                        child: const Icon(Icons.add, color: txtClr),
+                        child: Icon(
+                          isUpdate ? Icons.check : Icons.add,
+                          color: txtClr,
+                        ),
                       ),
                     ],
                   ),
