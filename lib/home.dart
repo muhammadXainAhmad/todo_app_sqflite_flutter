@@ -43,11 +43,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   void runFilter(String searchWord) {
+    List<Map<String, dynamic>> baseList = [];
+
+    if (taskTitle == "Completed Tasks") {
+      baseList =
+          allItems
+              .where((item) => item[DBHelper.COLUMN_TODO_ISDONE] == 1)
+              .toList();
+    } else if (taskTitle == "Incomplete Tasks") {
+      baseList =
+          allItems
+              .where((item) => item[DBHelper.COLUMN_TODO_ISDONE] == 0)
+              .toList();
+    } else {
+      baseList = allItems;
+    }
     if (searchWord.isEmpty) {
-      filteredItems = allItems;
+      filteredItems = baseList;
     } else {
       filteredItems =
-          allItems
+          baseList
               .where(
                 (item) => item[DBHelper.COLUMN_TODO_TEXT]
                     .toLowerCase()
