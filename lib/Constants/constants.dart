@@ -36,3 +36,8 @@ final myBtn = RoundedRectangleBorder(
   side: const BorderSide(color: Colors.black),
   borderRadius: BorderRadius.circular(20),
 );
+
+final myBtn2 = RoundedRectangleBorder(
+  side: BorderSide(color: drawerClr),
+  borderRadius: BorderRadius.circular(20),
+);

@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   String updateID = "";
   String updateText = "";
   int updateIsDone = 0;
+  int? updateIndex;
   bool isUpdate = false;
   List<Map<String, dynamic>> filteredItems = [];
   List<Map<String, dynamic>> allItems = [];
@@ -271,7 +272,8 @@ class _HomePageState extends State<HomePage> {
                         );
                         getItems();
                       },
-                      shape: myBtn,
+
+                      shape: updateIndex == index ? myBtn2 : myBtn,
                       tileColor: wgClr,
                       leading: Icon(
                         filteredItems[index][DBHelper.COLUMN_TODO_ISDONE] == 1
@@ -312,6 +314,7 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () {
                                 setState(() {
                                   isUpdate = true;
+                                  updateIndex = index;
                                   updateID =
                                       filteredItems[index][DBHelper
                                           .COLUMN_TODO_ID];
@@ -425,6 +428,7 @@ class _HomePageState extends State<HomePage> {
                               updateID = "";
                               updateText = "";
                               updateIsDone = 0;
+                              updateIndex = null;
                             }
                           }
                         },

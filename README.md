@@ -16,7 +16,7 @@ A To-Do List Flutter app that allows users to add, edit, delete, and mark tasks 
 
 ## Screenshots 📸
 ### **Home Page**
-<img src="assets/allTasks.png" width="300"/>
+<img src="assets/homePage.png" width="300"/>
 
 ### **Search Bar Functionality**
 <img src="assets/searchBar.png" width="300"/>
