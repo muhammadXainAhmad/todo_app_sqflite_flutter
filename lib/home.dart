@@ -296,10 +296,10 @@ class _HomePageState extends State<HomePage> {
                           decorationColor: bgClr,
                         ),
                       ),
-                      subtitle: Text(
-                        filteredItems[index][DBHelper.COLUMN_TODO_DATE],
+                      /*subtitle: Text(
+                        "Due Date: ${filteredItems[index][DBHelper.COLUMN_TODO_DATE]}",
                         style: TextStyle(color: txtClr, fontSize: 12),
-                      ),
+                      ),*/
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

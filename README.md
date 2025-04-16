@@ -1,16 +1,49 @@
-# todo_app_sqflite
+# Flutter To-Do App 📱
+A To-Do List Flutter app that allows users to add, edit, delete, and mark tasks as completed or incomplete. Tasks are stored locally using SQLite for persistent storage. The app features a search bar to filter tasks, including within filtered categories, and a side drawer for easy navigation between all tasks, completed tasks, and incomplete tasks.
 
-A new Flutter project.
+---
 
-## Getting Started
+## Features 🚀
+- **Add Tasks**: Easily add new tasks to your to-do list ➕
+- **Edit Tasks**: Modify existing tasks anytime ✏️  
+- **Delete Tasks**: Remove tasks when no longer needed  🗑️
+- **Mark Tasks as Completed or Incomplete**: Toggle between completed and incomplete tasks ✅❌
+- **Local Storage with SQLite**: Tasks are saved even after restarting the app 🗃️  
+- **Search Functionality**: Search tasks by their name within all views 🔍  
+- **Drawer Navigation**: Navigate between views for All Tasks, Completed Tasks, and Incomplete Tasks  🗂️
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots 📸
+### **Home Page**
+<img src="screenshots/allTasks.png" width="300"/>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### **Search Bar Functionality**
+<img src="screenshots/searchBar.png" width="300"/>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### **Drawer**
+<img src="screenshots/drawer.png" width="300"/>
+
+### **Completed Tasks Via Drawer**
+<img src="screenshots/complete.png" width="300"/>
+
+### **InComplete Tasks Via Drawer**
+<img src="screenshots/incomplete.png" width="300"/>
+
+---
+
+## Tech Stack ⚙️
+- **Flutter**: Framework for building the app.
+- **Dart**: Programming language used in Flutter for the development of the app.
+- **VS Code / Android Studio**: Integrated Development Environments (IDEs) used for coding and testing the app.
+- **Git**: Version control tool for source code management.
+
+---
+
+## Dependencies ⚙️
+
+This project uses the following dependencies:
+
+- [`sqflite`](https://pub.dev/packages/sqflite): SQLite plugin for Flutter to store and retrieve task data  
+- [`path_provider`](https://pub.dev/packages/path_provider): Plugin to find commonly used locations on the filesystem  
+- [`path`](https://pub.dev/packages/path): Library for working with file paths
