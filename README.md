@@ -38,14 +38,6 @@ A To-Do List Flutter app that allows users to add, edit, delete, and mark tasks 
 
 ---
 
-## Tech Stack ⚙️
-- **Flutter**: Framework for building the app.
-- **Dart**: Programming language used in Flutter for the development of the app.
-- **VS Code / Android Studio**: Integrated Development Environments (IDEs) used for coding and testing the app.
-- **Git**: Version control tool for source code management.
-
----
-
 ## Dependencies ⚙️
 
 This project uses the following dependencies:
@@ -53,3 +45,11 @@ This project uses the following dependencies:
 - [`sqflite`](https://pub.dev/packages/sqflite): SQLite plugin for Flutter to store and retrieve task data  
 - [`path_provider`](https://pub.dev/packages/path_provider): Plugin to find commonly used locations on the filesystem  
 - [`path`](https://pub.dev/packages/path): Library for working with file paths
+
+---
+
+## Tech Stack 🛠️
+- **Flutter**: Framework for building the app.
+- **Dart**: Programming language used in Flutter for the development of the app.
+- **VS Code / Android Studio**: Integrated Development Environments (IDEs) used for coding and testing the app.
+- **Git**: Version control tool for source code management.
